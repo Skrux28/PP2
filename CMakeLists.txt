@@ -3,4 +3,4 @@ project(PP2 C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(PP2 main.c game.c interface.c initialGame.c game.h)
+add_executable(PP2 main.c game.c interface.c initialGame.c game.h utility.h utility.c)
