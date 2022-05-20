@@ -9,4 +9,6 @@ int runGame(Board * pb);
 int Clean_board(pBoard pb);
 
 int Random_board(pBoard pb);
+
+int Count_alive(pBoard pb);
 #endif //PP2_GAME_H

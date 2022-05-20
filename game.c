@@ -69,3 +69,13 @@ int Clean_board(pBoard pb){
     }
     return 1;
 }
+
+int Count_alive(pBoard pb){
+    for(int i = 0; i<pb->row; i++){
+        for(int j=0; j<pb->col; j++){
+            if (pb->boardArr[i][j] == '1'){
+                pb->count_alive ++;
+            }
+        }
+    }
+}
