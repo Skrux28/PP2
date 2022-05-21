@@ -3,10 +3,13 @@
 //
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "utility.h"
-#include "SDL/SDL2/SDL.h"
 
+/**
+ * replace the '\n' with '\0'
+ * @param str
+ * @return str
+ */
 char* getLine(char* str) {
     int size = strlen(str);
     if((size != 0) && (str[size-1] == '\n')) {
@@ -15,15 +18,20 @@ char* getLine(char* str) {
     return str;
 }
 
-int history_save(char * filename, Board * pb){
-    FILE *fp;
-    if ((fp = fopen(filename,"w"))==NULL)
+/**
+ * writing the information of current game into the history.txt file
+ * @param fp File pointer of the history.txt file
+ * @param pb pointer of the Board structure
+ * @return 0
+ */
+int history_save(FILE * fp, Board * pb){
+    if (fp==NULL)
     {
         printf("Cannot find the file！\n");
-        exit(-1);
+        return -1;
     }
     else {
-        fprintf(fp, "%d\n%d\n", pb->row, pb->col);
+        fprintf(fp, "%d\n%d\n%d\n%d\n", pb->row, pb->col, pb->size_l, pb->delay_t);
         for(int i=0;i<pb->row; i++){
             for(int j=0;j<pb->col;j++){
                 fprintf(fp,"%c", pb->boardArr[i][j]);
@@ -33,9 +41,16 @@ int history_save(char * filename, Board * pb){
             }
         }
     }
-    return 1;
+    return 0;
 }
 
+/**
+ * destroy the window, renderer and texture of SDL
+ * @param window pointer of SDL_Window
+ * @param render pointer of SDL_Renderer
+ * @param texture pointer of SDL_texture
+ * @return 0
+ */
 int Destroy(SDL_Window *window, SDL_Renderer *render, SDL_Texture *texture){
     if (window)
     {
@@ -49,5 +64,6 @@ int Destroy(SDL_Window *window, SDL_Renderer *render, SDL_Texture *texture){
     {
         SDL_DestroyTexture(texture);
     }
+    return 0;
 }
 
