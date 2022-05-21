@@ -8,7 +8,7 @@
 
 ## 2. Screenshot of my git commit history:
 
-![github com_Skrux28_PP2_commits_master](https://user-images.githubusercontent.com/91491618/169662818-25a613f9-47aa-4b80-8ab0-585cd449af01.png)
+
 
 
 
