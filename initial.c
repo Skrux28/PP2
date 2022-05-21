@@ -15,7 +15,11 @@ int loadFile(FILE * fp, Board * pb){
     if (fp==NULL)
     {
         printf("Cannot find the file！\n");
-        exit(-1);
+        return -1;
+    }
+    if(pb==NULL){
+        printf("Point to structure is NULL\n");
+        return -1;
     }
     else{
         char Row[1024];
@@ -35,7 +39,7 @@ int loadFile(FILE * fp, Board * pb){
         strcpy(Delay_t, getLine(Delay_t));
         pb->delay_t = atoi(Delay_t);
         pb->count_alive = 0;
-        if(pb->col*pb->size_l>=660){
+        if(pb->col*pb->size_l>660||pb->col*pb->size_l<200){
             printf("[The height of the window is out of range!(100-600)]\n[Please set the size of the window again]\n");
             return -1;
         }
@@ -75,8 +79,7 @@ int loadFile(FILE * fp, Board * pb){
                 pb->boardArr[i][j] = temp[j];
             }
         }
-        return 1;
-    }
+    }return 0;
 }
 
 /**
@@ -91,24 +94,35 @@ int loadFile(FILE * fp, Board * pb){
  */
 int window_text(TTF_Font* ttf_font, SDL_Renderer *render, char *sum, int x, int y, int win_w){
     SDL_Color color = {218,220,235,255};
-    SDL_Surface *text1_surface=TTF_RenderUTF8_Blended(ttf_font, sum ,color);
-    if(!text1_surface){
-        printf("surface create failed!");
+    if(!ttf_font){
+        printf("ttf_font loading failed!\n");
         return -1;
     }
+    if(!render){
+        printf("render loading failed!\n");
+        return -1;
+    }
+    if (win_w>1200||win_w<400){
+        printf("width of window is out of range!\n");
+        return -1;
+    }
+    if(strcmp(sum, NULL)){
+        printf("there is no words to show!\n");
+    }
+    SDL_Surface *text1_surface=TTF_RenderUTF8_Blended(ttf_font, sum ,color);
     // create the texture
     SDL_Texture *texture2=SDL_CreateTextureFromSurface(render,text1_surface);
     // Copy surface to renderer
-    if(!texture2){
-        printf("surface create failed!");
-        return -1;
-    }
     SDL_Rect text_rect;
     if(x==0){
         x = win_w/2 - text1_surface->w/2;
     }
     if (x==1){
         x = win_w - text1_surface->w-4;
+    }
+    if(x<0||y<0){
+        printf("x,y out of range!\n");
+        return -1;
     }
     text_rect.x=x;
     text_rect.y=y;
@@ -130,10 +144,26 @@ int window_text(TTF_Font* ttf_font, SDL_Renderer *render, char *sum, int x, int 
  * @return 0
  */
 int Put_button(SDL_Renderer *render, int win_w, int win_h, char *button_img, int index){
+    if (!render){
+        printf("render loading failed!");
+        return -1;
+    }
+    if (win_w>1200||win_w<400){
+        printf("width of window is out of range!");
+        return -1;
+    }
+    if (win_h>660||win_h<200){
+        printf("height of window is out of range!");
+        return -1;
+    }
     if(index<0||index>5){
         printf("index out of range!");
         return -1;
     };
+    if(button_img == NULL){
+        printf("button_img loading failed!");
+        return -1;
+    }
     SDL_Surface *Btn_surf = NULL;
     SDL_Texture *Btn_text = NULL;
     SDL_Rect ButtRect;
@@ -176,6 +206,7 @@ int Put_button(SDL_Renderer *render, int win_w, int win_h, char *button_img, int
     Btn_surf= IMG_Load(button_img);
     Btn_text = SDL_CreateTextureFromSurface(render, Btn_surf );
     SDL_RenderCopy(render, Btn_text, NULL, &ButtRect);
+    return 0;
 }
 
 

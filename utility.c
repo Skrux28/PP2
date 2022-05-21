@@ -12,6 +12,10 @@
  */
 char* getLine(char* str) {
     int size = strlen(str);
+    if(str == NULL){
+        printf("string is NULL\n");
+        return NULL;
+    }
     if((size != 0) && (str[size-1] == '\n')) {
         str[size-1] ='\0';
     }
@@ -28,6 +32,10 @@ int history_save(FILE * fp, Board * pb){
     if (fp==NULL)
     {
         printf("Cannot find the file！\n");
+        return -1;
+    }
+    if(pb == NULL){
+        printf("game board loading failed!\n");
         return -1;
     }
     else {
