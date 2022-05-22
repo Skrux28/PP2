@@ -102,11 +102,11 @@ int window_text(TTF_Font* ttf_font, SDL_Renderer *render, char *sum, int x, int 
         printf("render loading failed!\n");
         return -1;
     }
-    if (win_w>1200||win_w<400){
+    if (win_w>1200||win_w<0){
         printf("width of window is out of range!\n");
         return -1;
     }
-    if(strcmp(sum, NULL)){
+    if(!sum){
         printf("there is no words to show!\n");
     }
     SDL_Surface *text1_surface=TTF_RenderUTF8_Blended(ttf_font, sum ,color);
@@ -152,7 +152,7 @@ int Put_button(SDL_Renderer *render, int win_w, int win_h, char *button_img, int
         printf("width of window is out of range!");
         return -1;
     }
-    if (win_h>660||win_h<200){
+    if (win_h>1000||win_h<200){
         printf("height of window is out of range!");
         return -1;
     }

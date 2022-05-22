@@ -48,7 +48,7 @@ int runGame(Board * pb){
             }
         }
     }
-    return 1;
+    return 0;
 }
 
 /**

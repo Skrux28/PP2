@@ -56,7 +56,7 @@ int main(int argc, char* args[])
             game_fp = fopen(gameFile,"r");
             // check whether the loading of the initial file is successful
             // if not return -1
-            if (loadFile(game_fp, pBoard1) != 1){
+            if (loadFile(game_fp, pBoard1) != 0){
                 printf("Load the initial file failed!\n");
                 return -1;
             }
@@ -82,11 +82,7 @@ int main(int argc, char* args[])
             game_fp = fopen(gameFile,"r");
             // check whether the loading of the initial file is successful
             // if not return -1
-            if (loadFile(game_fp, pBoard1) != 1){
-                printf("Load the initial file failed!\n");
-                return -1;
-            }
-            if (loadFile(game_fp, pBoard1) != 1){
+            if (loadFile(game_fp, pBoard1) != 0){
                 printf("Load the initial file failed!\n");
                 return -1;
             }
@@ -397,4 +393,3 @@ int main(int argc, char* args[])
     free(pBoard1->boardArr);
     return 0;
 }
-
